@@ -60,6 +60,12 @@ func (e *Engine) LoadHTMLGlob(pattern string) {
 	e.htmlTemplate = template.Must(template.New("").Funcs(e.funcMap).ParseGlob(pattern))
 }
 
+func Default() *Engine {
+	engine:=New()
+	engine.Use(Logger(),Recovery())
+	return engine
+}
+
 func (group *RouterGroup) Group(prefix string) *RouterGroup{
 	newGroup:=&RouterGroup{
 		r:group.r,
